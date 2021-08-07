@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="changeme" default="all" basedir=".">
+
+ <description>
+         Arquivo de scripts para o Ant que realiza o
+         empacotamento e deploy de um aplicativo web.
+     </description>
+
+    <property name="app.name" value="olamundo"/>
+    <property name="tomcat.home" value="/java/tomcat"/>
+    <property name="tomcat.deploy" value="${tomcat.home}/webapps"/>
+    <property name="src.dir" value="src" />
+    <property name="classes.dir" value="web/WEB-INF/classes"/>
+    <property name="jars.dir" value="dist"/>
+
+    <path id="class.path">
+         <fileset dir="${tomcat.home}/common/lib">
+             <include name="**/*.jar"/>
+             <include name="**/*.zip"/>
+         </fileset>
+
+     </path>
+
+     <target name="preparar">
+         <mkdir dir="${classes.dir}"/>
+         <mkdir dir="${jars.dir}"/>
+     </target>
+
+     <target name="compilar" depends="preparar">
+         <javac srcdir="${src.dir}" destdir="${classes.dir}">
+             <classpath refid="class.path" />
+         </javac>
+     </target>
+
+     <target name="empacotar" depends="compilar">
+         <war destfile="${jars.dir}/${app.name}.war" webxml="web/WEB-INF/web.xml">
+             <classes dir="${classes.dir}"/>
+             <fileset dir="web"/>
+         </war>
+     </target>
+
+     <target name="deploy-tomcat" depends="empacotar">
+         <copy file="${jars.dir}/${app.name}.war" tofile="${tomcat.deploy}/${app.name}.war"/>
+     </target>
+
+     <target name="undeploy-tomcat">
+         <delete file="${tomcat.deploy}/${app.name}.war" />
+     </target>
+
+     <target name="clean">
+         <delete dir="${jars.dir}"/>
+         <delete dir="${classes.dir}"/>
+     </target>
+
+
+</project>

@@ -1,0 +1,8 @@
+MIDlet-1: ControlePrincipal_Mid,,principal.ControlePrincipal_Mid
+MIDlet-Jar-Size: 17265
+MIDlet-Jar-URL: MidAgenCel.jar
+MIDlet-Name: AgenCel Client
+MIDlet-Vendor: Domicio Rinaldo e Marcelo Guerra
+MIDlet-Version: 1.0.0
+MicroEdition-Configuration: CLDC-1.1
+MicroEdition-Profile: MIDP-2.0
